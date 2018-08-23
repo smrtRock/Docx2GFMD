@@ -1,20 +1,33 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Docs to Git Flavored Markdown (Docx2GFMD)
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+The tool has a dependency on [Pandoc](https://github.com/jgm/pandoc)
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Examples
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+- Will convert the current directory
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+```cmd
+Docx2GFMD.exe  
+```
+
+- Will convert specified directory
+
+```cmd
+Docx2GFMD.exe C:\Directory\To\Prep
+```
+
+The tool does the following: 
+
+1.	Creates the following folder structure
+```cmd
+C:\Directory\To\Prep\Converted
+			\.attachments
+			\Prep
+```
+2.	Converts either the current directory or a specified directory to github flavored markdown, preferred by VSTS Wiki
+3.	Prepares an index folder with VSTS compatible reference links to the content, you may need to add the rest of the link from Azure-Wiki-Home location for example.
+4.	Extracts all media to the .attachments folder
+5.	Prepends all images with the name of the directory being converted, in this example image1.png becomes prep_image1.png
+6.	Updates the links to images on all the converted markdown pages.  
+
+This should give everyone a head start if you have any mass migrations of documents.  
