@@ -21,11 +21,11 @@ namespace Docx2GFMD
             // Check if they want help
             if (args.ToString().Contains("/?") || args.ToString().Contains("/h"))
             {
-                Console.Error.WriteLine("USAGE: doc2xgfmd -d 'C:\\Directory\\To\\Convert");
+                Console.Error.WriteLine("USAGE: doc2xgfmd 'C:\\Directory\\To\\Convert");
                 Console.Error.WriteLine();
                 Console.Error.WriteLine("EXAMPLES:");
                 Console.Error.WriteLine();
-                Console.Error.WriteLine("Convert the C:\\Temp:  doc2gfmd -d C:\\Temp");
+                Console.Error.WriteLine("Convert the C:\\Temp:  doc2gfmd C:\\Temp");
                 Console.Error.WriteLine("Convert the current directory: doc2gfmd");
             }
             // Set default values and prepare environment for conversion
