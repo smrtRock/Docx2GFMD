@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,7 +10,7 @@ namespace Docx2GFMD
         #region Properties
         private static DirectoryInfo[] Directories { get; set; }
         private static string ImageDirectory { get; set; }
-        private static string ConvertedDirectory { get; set; } // = "C:\\Users\\marcusf\\source\\repos\\Docx2GFMD\\bin\\Debug\\ADR_Deployment_Expansion";
+        private static string ConvertedDirectory { get; set; } 
         private static string Dir { get; set; } 
         private static string Root { get; set; }
 
@@ -52,7 +52,6 @@ namespace Docx2GFMD
             CreateOrderFile();
             MoveImages();
             FixImageLinks();
-
         }
 
         private static void PrepareFolderStructure()
@@ -70,45 +69,6 @@ namespace Docx2GFMD
                 Directory.CreateDirectory(ImageDirectory);
             }
         }
-
-        //private static void CleanUpImages()
-        //{
-        //    // Move and rename image from the subdirectory created by pandoc
-        //    foreach (var img in Directory.GetFiles($"{ImageDirectory}\\media"))
-        //    {
-        //        // Move and rename
-        //        var newImg = $"{ImageDirectory}\\{new DirectoryInfo(ConvertedDirectory).Name}{img}";
-        //        File.Move(img,newImg);
-        //        foreach (var file in Directory.GetFiles(ConvertedDirectory))
-        //        {
-        //            List<string> currentFile = new List<string>(); 
-        //            using (StreamReader sr = new StreamReader(file))
-        //            {
-        //                string line;
-        //                while ((line = sr.ReadLine()) != null)
-        //                {
-        //                    currentFile.Add(line);
-        //                }
-        //            }
-
-        //            if (currentFile.Contains(img))
-        //            {
-        //                foreach (var line in currentFile)
-        //                {
-        //                    if (line.Contains(img)) line.Replace(img, newImg);
-        //                }
-                        
-        //                using (StreamWriter sw = new StreamWriter(file))
-        //                {
-        //                    foreach (var line in currentFile)
-        //                    {
-        //                        sw.WriteLine(line);
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    } 
-        //}
 
         private static void ConvertToMarkdown()
         {
