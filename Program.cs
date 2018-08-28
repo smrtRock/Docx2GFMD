@@ -8,12 +8,10 @@ namespace Docx2GFMD
     internal class Program
     {
         #region Properties
-        private static DirectoryInfo[] Directories { get; set; }
         private static string ImageDirectory { get; set; }
-        private static string ConvertedDirectory { get; set; } 
-        private static string Dir { get; set; } 
-        private static string Root { get; set; }
-
+        private static string ConvertedDirectory { get; set; }
+        private static string Dir { get; set; }
+       
         #endregion
 
         private static void Main(string[] args)
@@ -62,9 +60,9 @@ namespace Docx2GFMD
             {
                 Directory.CreateDirectory(ConvertedDirectory);
             }
-                        
+
             // The image folder is only set once
-            if (!Directory.Exists(ImageDirectory) && !string.IsNullOrEmpty(Root))
+            if (!Directory.Exists(ImageDirectory))
             {
                 Directory.CreateDirectory(ImageDirectory);
             }
@@ -74,22 +72,15 @@ namespace Docx2GFMD
         {
             foreach (var file in Directory.GetFiles(Dir))
             {
-                try
+                ProcessStartInfo StartInfo = new ProcessStartInfo
                 {
-                    ProcessStartInfo StartInfo = new ProcessStartInfo
-                    {
-                        FileName = @"pandoc.exe",
-                        Arguments = GetArguments(file)
-                    };
+                    FileName = @"pandoc.exe",
+                    Arguments = GetArguments(file)
+                };
 
-                    using (Process exeProcess = Process.Start(StartInfo))
-                    {
-                        exeProcess.WaitForExit();
-                    }
-                }
-                catch
+                using (Process exeProcess = Process.Start(StartInfo))
                 {
-                    Console.Error.WriteLine(new Exception().Message);
+                    exeProcess.WaitForExit();
                 }
             }
         }
@@ -97,7 +88,7 @@ namespace Docx2GFMD
         private static string GetArguments(string file)
         {
             string arguments;
-           
+
             var outName = GetName(file);
             arguments = $"{file} --to gfm " +
                 $"--output {outName} --extract-media={ImageDirectory}";
@@ -108,7 +99,7 @@ namespace Docx2GFMD
         {
             return $"{ConvertedDirectory}\\{new FileInfo(file).Name.Split('.')[0].Trim()}.md";
         }
- 
+
         private static void CreateIndexMarkdown()
         {
 
@@ -125,7 +116,7 @@ namespace Docx2GFMD
             {
                 File.Delete($"{new DirectoryInfo(ConvertedDirectory).FullName}\\index.md");
             }
-            File.Move(tempFile, $"{new DirectoryInfo(ConvertedDirectory).FullName}\\index.md");
+            File.Move(tempFile, $"{new DirectoryInfo(ConvertedDirectory).Parent.FullName}\\index.md");
         }
 
         private static void CreateOrderFile()
@@ -147,11 +138,11 @@ namespace Docx2GFMD
 
         private static void MoveImages()
         {
-            foreach(var file in new DirectoryInfo($"{ImageDirectory}\\media").GetFiles())
+            foreach (var file in new DirectoryInfo($"{ImageDirectory}\\media").GetFiles())
             {
                 FileInfo newFileName = new FileInfo($"{file.Directory.Parent.FullName}\\{new DirectoryInfo(Dir).Name}_{file.Name}");
-                
-                File.Move(file.FullName,newFileName.FullName);
+
+                File.Move(file.FullName, newFileName.FullName);
             }
 
             Directory.Delete($"{ImageDirectory}\\media");

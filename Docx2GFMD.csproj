@@ -57,7 +57,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>doc2gfm.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>InitialReleaseKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="doc2gfm.pfx" />
+    <None Include="InitialReleaseKey.pfx" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
